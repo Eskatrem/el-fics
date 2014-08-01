@@ -1,0 +1,11 @@
+M-x fics
+Play on fics from within emacs! 
+For now it only works on linux.
+You need to have xboard installed.
+clone this repo in ~/.emacs.d
+In the repertory el-fics, create a file fics_config with two lines:
+          ---------------
+          username
+          password
+          --------------
+load in emacs the file fics.el, and run M-x fics.
