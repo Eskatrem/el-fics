@@ -18,9 +18,7 @@
            (process-send-string "*fics*" "xboard -ics -icshost freechess.org\n")
            (process-send-string "*fics*" (+enter username))
            (process-send-string "*fics*" (+enter password)))))
-;; (with-current-buffer "*fics*" (insert-string "xboard -ics -icshost freechess.org\n "))
-;; (with-current-buffer "*fics*" (insert-string "Slek\n"))
-;; (with-current-buffer "*fics*" (insert-string "ounupf\n"))
+
 
 
 
@@ -35,7 +33,7 @@
                (set-marker (process-mark proc) (point)))
              (if moving (goto-char (process-mark proc)))))))
 
-;; (ordinary-insertion-filter "*fics*" "test")
+;; (ordinary-insertion-filter (get-process "*fics*") (lambda () "test"))
 
 ;; (processp "*fics*")
 
@@ -44,3 +42,5 @@
 
 
 ;; (get-buffer-process "*fics*")
+
+;;(set-process-filter (start-process "ls" (get-buffer-create "*ls*") "ls") 'my-filter)
