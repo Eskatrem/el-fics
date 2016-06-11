@@ -69,11 +69,14 @@
          (user (substring user-tmp 1 (length user-tmp)))
          (conversation-buffer (concat "fics:" user))
          (core-splt (cdddr splt))
-         (rest-message (mapconcat 'identity core-splt " ")))
+         (rest-message (mapconcat 'identity core-splt " "))
+         (chat-line (nth 0 (split-string rest-message "\n"))))
     (get-buffer-create conversation-buffer)
     (with-current-buffer conversation-buffer
       (fics-chat-mode)
-      (insert (concat user ": " rest-message "\n")))))
+      (insert "\n")
+      (previous-line)
+      (insert (concat user ": " chat-line "\n")))))
 
 (length "test")
 
