@@ -53,6 +53,17 @@
 
 (setq kept nil)
 
+(defun insert-into-buffer (buffer text)
+  (let ((buffer-window (get-buffer-window buffer)))
+    (if (not buffer-window)
+        (with-current-buffer buffer
+          (beginning-of-line)
+          (insert text)
+          (goto-char (point-max)))
+      (with-current-buffer buffer
+        (beginning-of-line)
+        (insert text)
+        (set-window-point (get-buffer-window) (point-max))))))
 
 
 
@@ -61,6 +72,8 @@
     (if (string= "tells" (nth 1 splt))
         (progn
           (handle-tell message)))))
+
+
 
 (defun handle-tell (message)
   (let* ((formatted (ansi-color-filter-apply message))
@@ -73,10 +86,11 @@
          (chat-line (nth 0 (split-string rest-message "\n"))))
     (get-buffer-create conversation-buffer)
     (with-current-buffer conversation-buffer
-      (fics-chat-mode)
-      (insert "\n")
-      (previous-line)
-      (insert (concat user ": " chat-line "\n")))))
+      (fics-chat-mode))
+    (insert-into-buffer conversation-buffer (concat user ":" chat-line "\n"))
+    ))
+
+(with-current-buffer "*scratch*" (insert "test3\n") (goto-char (point-max)))
 
 (length "test")
 
